@@ -1015,3 +1015,27 @@ const pairs = job => {
 
 jobs.map(pairs);
 console.log(dupJobs);
+
+// part 2
+let overlaps = 0;
+
+const overlaping = job => {
+    const [elf1, elf2] = job.split(",");
+    const elf1Jobs = elf1.split("-");
+    const elf2Jobs = elf2.split("-");
+    
+    // if lowerbound or upperbound of elf2jobs is included in elf1jobs, overlaps ++
+    if( 
+        //check to see if elf2Jobs[0] in between elf1[0] and elf1[1]
+        (Number(elf1Jobs[0]) <= Number(elf2Jobs[0]) && Number(elf1Jobs[1]) >= Number(elf2Jobs[0])) ||
+        // check to see if elf2Jobs[1] in between elf1[0] and elf1[1]
+        (Number(elf1Jobs[0]) <= Number(elf2Jobs[1]) && Number(elf1Jobs[1]) >= Number(elf2Jobs[1])) ||
+        // check to ee if elf1Jobs[0] in between elf2[0] and elf2[1]
+        (Number(elf2Jobs[0]) <= Number(elf1Jobs[0]) && Number(elf2Jobs[1]) >= Number(elf1Jobs[0])) ||
+        (Number(elf2Jobs[0]) <= Number(elf1Jobs[1]) && Number(elf2Jobs[1]) >= Number(elf1Jobs[1]))) {
+        return overlaps++;
+    } else return overlaps;
+}
+
+jobs.map(overlaping);
+console.log(overlaps);
